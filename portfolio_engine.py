@@ -609,29 +609,14 @@ def process_portfolio(uploaded_file):
     # out = xlsx_path.replace(".xlsx", "_MAJ.xlsx")
     # wb.save(out)
 
-    # --- AJOUT MINIMAL : date + numero de serie ---
-    today = dt.date.today().strftime("%Y-%m-%d")
-
-    base = xlsx_path.replace(
-        ".xlsx",
-        f"_MAJ_{today}"
-    )
-
-    idx = 1
-    while True:
-        out = f"{base}_{idx:03d}.xlsx"
-        if not os.path.exists(out):
-            break
-        idx += 1
-
-    wb.save(out)
-
+    output = BytesIO()
+    wb.save(output)
+    output.seek(0)
 
     write_log(log_path, f"Terminé. {ok}/{len(tickers)} tickers traités.")
-    print(f"OK -> {out}")
-    print(f"Log -> {log_path}")
 
-
+    return output
+    
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: py maj_portefeuille_yahoo_v8_5_yfinance.py <fichier.xlsx>")
