@@ -617,4 +617,3 @@ def process_portfolio(uploaded_file):
 
     return output
     
-
