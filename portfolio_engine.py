@@ -320,12 +320,12 @@ def sync_yf_data(wb, tickers: List[str]) -> None:
         yd.cell(row=i, column=1).value = t
 
 
-def main(xlsx_path: str) -> None:
-    log_path = xlsx_path.replace(".xlsx", "_LOG.txt")
+def process_portfolio(uploaded_file):
+    log_path = "/tmp/portfolio_log.txt"
     open(log_path, "w", encoding="utf-8").write(f"LOG démarré: {now_str()}\n")
-
-    wb = load_workbook(xlsx_path)
-
+    
+    wb = load_workbook(uploaded_file)
+ 
     if "Fonds-Compagnies-suivi" not in wb.sheetnames:
         raise RuntimeError("Feuille 'Fonds-Compagnies-suivi' introuvable.")
     ws = wb["Fonds-Compagnies-suivi"]
