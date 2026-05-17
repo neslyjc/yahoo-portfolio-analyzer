@@ -28,29 +28,29 @@ if uploaded_file is not None:
     st.success("Fichier Excel téléversé avec succès.")
 
     if st.button("Lancer l’analyse"):
-    try:
-        log_box = st.empty()
-        status_box = st.empty()
-
-        status_box.info("Analyse en cours...")
-
-        output_file = process_portfolio(uploaded_file)
-
         try:
-            with open("/tmp/portfolio_log.txt", "r", encoding="utf-8") as f:
-                logs = f.read()
-                log_box.text_area("Journal d’analyse", logs, height=300)
-        except:
-            log_box.warning("Aucun journal disponible.")
+            log_box = st.empty()
+            status_box = st.empty()
 
-        status_box.success("Analyse terminée avec succès.")
+            status_box.info("Analyse en cours...")
 
-        st.download_button(
-            label="Télécharger le fichier Excel mis à jour (Streamlit → votre appareil)",
-            data=output_file,
-            file_name="Portfolio_Updated.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
+            output_file = process_portfolio(uploaded_file)
+
+            try:
+                with open("/tmp/portfolio_log.txt", "r", encoding="utf-8") as f:
+                    logs = f.read()
+                    log_box.text_area("Journal d’analyse", logs, height=300)
+            except:
+                log_box.warning("Aucun journal disponible.")
+
+            status_box.success("Analyse terminée avec succès.")
+
+            st.download_button(
+                label="Télécharger le fichier Excel mis à jour (Streamlit → votre appareil)",
+                data=output_file,
+                file_name="Portfolio_Updated.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            )
 
     except Exception as e:
         st.error(f"Erreur : {e}")
