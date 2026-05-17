@@ -319,10 +319,18 @@ def sync_yf_data(wb, tickers: List[str]) -> None:
     for i, t in enumerate(tickers, start=2):
         yd.cell(row=i, column=1).value = t
 
-
-def process_portfolio(uploaded_file):
+def process_portfolio(uploaded_file, log_callback=None, progress_callback=None):
     log_path = "/tmp/portfolio_log.txt"
     open(log_path, "w", encoding="utf-8").write(f"LOG démarré: {now_str()}\n")
+
+    def live_log(message):
+        write_log(log_path, message)
+        if log_callback:
+            log_callback(message)
+
+    def live_progress(current, total):
+        if progress_callback:
+            progress_callback(current, total)
     
     wb = load_workbook(uploaded_file)
  
