@@ -204,7 +204,7 @@ def compute_metrics(symbol: str, log_path: str) -> Metrics:
         closes = close.tail(15).tolist()  # 14 périodes + 1
         m.rsi = compute_rsi(closes)
         # ===== Ligne à supprimer après test ====================
-        live_log(f"RSI {ticker}:{rsi}")
+        write_log(log_path, f"RSI {symbol}:{m.rsi}")
         # =========================
     except Exception:
         m.rsi = None
