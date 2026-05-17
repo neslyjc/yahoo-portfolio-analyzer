@@ -2,38 +2,38 @@ import streamlit as st
 from portfolio_engine import process_portfolio
 
 st.set_page_config(
-    page_title="Yahoo Portfolio Analyzer",
+    page_title="Analyseur de Portefeuille Yahoo",
     page_icon="📈",
     layout="centered"
 )
 
-st.title("📈 Yahoo Portfolio Analyzer")
-st.write("Upload your Excel portfolio file, run analysis, and download the updated file.")
+st.title("📈 Analyseur de Portefeuille Yahoo")
+st.write("Téléversez votre fichier Excel de portefeuille, lancez l’analyse, puis téléchargez le fichier mis à jour.")
 
 uploaded_file = st.file_uploader(
-    "Choose your Excel file",
+    "Choisir votre fichier Excel",
     type=["xlsx"]
 )
 
 if uploaded_file is not None:
 
-    st.success("Excel file uploaded successfully.")
+    st.success("Fichier Excel téléversé avec succès.")
 
-    if st.button("Run analysis"):
+    if st.button("Lancer l’analyse"):
 
-        with st.spinner("Processing Yahoo Finance data... please wait..."):
+        with st.spinner("Traitement des données Yahoo Finance... veuillez patienter..."):
 
             try:
                 output_file = process_portfolio(uploaded_file)
 
-                st.success("Analysis completed successfully.")
+                st.success("Analyse terminée avec succès.")
 
                 st.download_button(
-                    label="Download updated Excel file",
+                    label="Télécharger le fichier Excel mis à jour",
                     data=output_file,
                     file_name="Portfolio_Updated.xlsx",
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 )
 
             except Exception as e:
-                st.error(f"Error: {e}")
+                st.error(f"Erreur : {e}")
