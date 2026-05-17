@@ -10,6 +10,13 @@ st.set_page_config(
 
 st.title("📈 Analyseur de Portefeuille Yahoo")
 st.write("Téléversez votre fichier Excel de portefeuille, lancez l’analyse, puis téléchargez le fichier mis à jour.")
+with open("Fonds-Compagnies-Suivi_MODELE.xlsx", "rb") as template_file:
+    st.download_button(
+        label="Télécharger le fichier modèle",
+        data=template_file,
+        file_name="Fonds-Compagnies-Suivi_MODELE.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
 
 uploaded_file = st.file_uploader(
     "Choisir votre fichier Excel",
