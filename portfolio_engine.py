@@ -359,7 +359,7 @@ def process_portfolio(uploaded_file, log_callback=None, progress_callback=None):
         try:
             met = compute_metrics(sym, log_path)
             ok += 1
-            live_log(f"OK {ticker}")
+            live_log(f"OK {sym}")
             
             # ==============================================
             # AJOUT : RULE OF 40 (lignes 20, 21, 22 uniquement)
