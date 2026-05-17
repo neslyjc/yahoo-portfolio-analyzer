@@ -52,6 +52,6 @@ if uploaded_file is not None:
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
 
-    except Exception as e:
-        st.error(f"Erreur : {e}")
+        except Exception as e:
+            st.error(f"Erreur : {e}")
 
