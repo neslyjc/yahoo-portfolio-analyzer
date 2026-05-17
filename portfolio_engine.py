@@ -204,7 +204,7 @@ def compute_metrics(symbol: str, log_path: str) -> Metrics:
         closes = close.tail(15).tolist()  # 14 périodes + 1
         m.rsi = compute_rsi(closes)
         # ===== Ligne à supprimer après test ====================
-        write_log(log_path, f"RSI {symbol}: {m.rsi}")
+        live_log(f"RSI {ticker}:{rsi}")
         # =========================
     except Exception:
         m.rsi = None
@@ -348,10 +348,10 @@ def process_portfolio(uploaded_file, log_callback=None, progress_callback=None):
     if not tickers:
         raise RuntimeError("Aucun ticker trouvé en ligne 3 (B3→...).")
 
-    write_log(log_path, f"Tickers: {tickers}")
+    live_log(f"Tickers: {tickers}")
 
     sync_yf_data(wb, tickers)
-    write_log(log_path, "YF_Data synchronisé.")
+    live_log("YF_Data synchronisé.")
 
     ok = 0
     for i, sym in enumerate(tickers):
@@ -359,7 +359,7 @@ def process_portfolio(uploaded_file, log_callback=None, progress_callback=None):
         try:
             met = compute_metrics(sym, log_path)
             ok += 1
-            write_log(log_path, f"OK {sym}")
+            live_log(f"OK {ticker}")
             
             # ==============================================
             # AJOUT : RULE OF 40 (lignes 20, 21, 22 uniquement)
