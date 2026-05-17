@@ -617,8 +617,4 @@ def process_portfolio(uploaded_file):
 
     return output
     
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: py maj_portefeuille_yahoo_v8_5_yfinance.py <fichier.xlsx>")
-        sys.exit(1)
-    main(sys.argv[1])
+
