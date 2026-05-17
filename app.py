@@ -48,7 +48,7 @@ if uploaded_file is not None:
             st.download_button(
                 label="Télécharger le fichier Excel mis à jour (Streamlit → votre appareil)",
                 data=output_file,
-                file_name="Portfolio_Updated.xlsx",
+                file_name=f"Portefeuille_MAJ_{dt.datetime.now().strftime('%Y-%m-%d_%H%M')}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
 
