@@ -87,7 +87,7 @@ if uploaded_file is not None:
             if "CDR_TO" in uploaded_name:
                  prefix = "Portefeuille_MAJ_CDR_TO"
             else:
-            prefix = "Portefeuille_MAJ_USA"
+                 prefix = "Portefeuille_MAJ_USA"
 
             file_name = f"{prefix}_{eastern_now.strftime('%Y-%m-%d_%H%M')}.xlsx"
 
