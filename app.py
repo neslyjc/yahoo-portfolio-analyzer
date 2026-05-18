@@ -48,6 +48,18 @@ if uploaded_file is not None:
 
             output_file = process_portfolio(uploaded_file)
 
+            try:
+                with open("/tmp/portfolio_log.txt", "r", encoding="utf-8") as f:
+                logs = f.read()
+
+                st.text_area(
+                    "Journal d’analyse",
+                    logs,
+                    height=300
+                )
+            except:
+                st.warning("Aucun journal disponible.")
+    
             
             progress_bar.progress(100)
             time.sleep(0.5)
