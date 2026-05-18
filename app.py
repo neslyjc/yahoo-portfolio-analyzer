@@ -4,6 +4,12 @@ import time
 from portfolio_engine import process_portfolio
 from zoneinfo import ZoneInfo
 
+st.set_page_config(
+    page_title="Analyse Fonds et Compagnies",
+    page_icon="📈",
+    layout="centered"
+)
+
 # Protection accès simple
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
@@ -23,11 +29,6 @@ if not st.session_state.authenticated:
 
     st.stop()
 
-st.set_page_config(
-    page_title="Analyse Fonds et Compagnies",
-    page_icon="📈",
-    layout="centered"
-)
 
 st.title("📈 Analyse Fonds et Compagnies")
 st.write("Téléversez votre fichier Excel de portefeuille, lancez l’analyse, puis téléchargez le fichier mis à jour.")
