@@ -82,22 +82,22 @@ if uploaded_file is not None:
 
             eastern_now = dt.datetime.now(ZoneInfo("America/New_York"))
 
+            uploaded_name = uploaded_file.name.upper()
+
+            if "CDR_TO" in uploaded_name:
+                 prefix = "Portefeuille_MAJ_CDR_TO"
+            else:
+            prefix = "Portefeuille_MAJ_USA"
+
+            file_name = f"{prefix}_{eastern_now.strftime('%Y-%m-%d_%H%M')}.xlsx"
+
             st.download_button(
                 label="Télécharger le fichier Excel mis à jour (Streamlit → votre appareil)",
                 data=output_file,
-                
-                uploaded_name = uploaded_file.name.upper()
-
-                if "CDR_TO" in uploaded_name:
-                    prefix = "Portefeuille_MAJ_CDR_TO"
-                else:
-                    prefix = "Portefeuille_MAJ_USA"
-
-                file_name=f"{prefix}_{eastern_now.strftime('%Y-%m-%d_%H%M')}.xlsx"
-                
+                file_name=file_name,
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
-
+          
 
         except Exception as e:
             st.error(f"Erreur : {e}")
