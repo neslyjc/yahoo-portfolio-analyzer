@@ -364,6 +364,7 @@ def process_portfolio(uploaded_file, log_callback=None, progress_callback=None):
         try:
             met = compute_metrics(sym, log_path, log_callback)
             ok += 1
+            live_progress(i + 1, len(tickers))
             live_log(f"OK {sym}")
             
             # ==============================================
