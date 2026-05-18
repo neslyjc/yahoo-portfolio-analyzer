@@ -5,12 +5,12 @@ from portfolio_engine import process_portfolio
 from zoneinfo import ZoneInfo
 
 st.set_page_config(
-    page_title="Analyseur de Portefeuille Yahoo",
+    page_title="Analyse Fonds et Compagnies",
     page_icon="📈",
     layout="centered"
 )
 
-st.title("📈 Portefeuille Yahoo")
+st.title("📈 Analyse Fonds et Compagnies")
 st.write("Téléversez votre fichier Excel de portefeuille, lancez l’analyse, puis téléchargez le fichier mis à jour.")
 
 
