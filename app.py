@@ -44,7 +44,7 @@ if uploaded_file is not None:
             for message, pct in etapes:
                 status_box.info(message)
                 progress_bar.progress(pct)
-                time.sleep(0.6)
+                time.sleep(1.2)
 
             output_file = process_portfolio(uploaded_file)
 
