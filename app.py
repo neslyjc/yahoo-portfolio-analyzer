@@ -12,11 +12,23 @@ st.set_page_config(
 
 st.title("📈 Portefeuille Yahoo")
 st.write("Téléversez votre fichier Excel de portefeuille, lancez l’analyse, puis téléchargez le fichier mis à jour.")
-with open("Fonds-Compagnies-Suivi_MODELE.xlsx", "rb") as template_file:
+
+
+# Modèle USA / NYSE
+with open("Fonds-Compagnies-Suivi_MODELE.xlsx", "rb") as f1:
     st.download_button(
-        label="Télécharger le fichier modèle (GitHub → votre appareil)",
-        data=template_file,
+        label="Télécharger modèle USA / NYSE (GitHub → votre appareil)",
+        data=f1.read(),
         file_name="Fonds-Compagnies-Suivi_MODELE.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
+# Modèle Canada / CDR / TO
+with open("Fonds-Compagnies-Suivi_MODELE_CDR_TO.xlsx", "rb") as f2:
+    st.download_button(
+        label="Télécharger modèle Canada / CDR / TO (GitHub → votre appareil)",
+        data=f2.read(),
+        file_name="Fonds-Compagnies-Suivi_MODELE_CDR_TO.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 
