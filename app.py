@@ -36,12 +36,28 @@ if uploaded_file is not None:
 
             output_file = process_portfolio(uploaded_file)
 
-            try:
-                with open("/tmp/portfolio_log.txt", "r", encoding="utf-8") as f:
-                    logs = f.read()
-                    log_box.text_area("Journal d’analyse", logs, height=300)
-            except:
-                log_box.warning("Aucun journal disponible.")
+            status_box.info("Analyse en cours...")
+
+            live_logs = []
+            progress_bar = st.progress(0)
+
+            def ui_log(message):
+                live_logs.append(message)
+                log_box.text_area(
+                    "Journal d’analyse",
+                    "\n".join(live_logs),
+                    height=300
+                )
+
+                def ui_progress(current, total):
+                    if total > 0:
+                        progress_bar.progress(current / total)
+
+                output_file = process_portfolio(
+                    uploaded_file,
+                    log_callback=ui_log,
+                    progress_callback=ui_progress
+                )
 
             status_box.success("Analyse terminée avec succès.")
 
