@@ -50,7 +50,8 @@ if uploaded_file is not None:
 
             
             progress_bar.progress(100)
-            time.sleep(0.3)
+            time.sleep(0.5)
+            
             status_box.success("Analyse terminée avec succès.")
 
             st.download_button(
