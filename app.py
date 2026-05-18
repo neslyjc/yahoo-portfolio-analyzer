@@ -52,7 +52,7 @@ if uploaded_file is not None:
 
                 def ui_progress(current, total):
                     if total > 0:
-                        progress_bar.progress(current / total)
+                        progress_bar.progress(int((current / total) * 100))
 
                 output_file = process_portfolio(
                     uploaded_file,
