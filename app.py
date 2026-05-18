@@ -2,6 +2,7 @@ import streamlit as st
 import datetime as dt
 import time
 from portfolio_engine import process_portfolio
+from zoneinfo import ZoneInfo
 
 st.set_page_config(
     page_title="Analyseur de Portefeuille Yahoo",
@@ -67,12 +68,15 @@ if uploaded_file is not None:
 
             status_box.success("Analyse terminée avec succès.")
 
+            eastern_now = dt.datetime.now(ZoneInfo("America/New_York"))
+
             st.download_button(
                 label="Télécharger le fichier Excel mis à jour (Streamlit → votre appareil)",
                 data=output_file,
-                file_name=f"Portefeuille_MAJ_{dt.datetime.now().strftime('%Y-%m-%d_%H%M')}.xlsx",
+                file_name=f"Portefeuille_MAJ_{eastern_now.strftime('%Y-%m-%d_%H%M')}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
+
 
         except Exception as e:
             st.error(f"Erreur : {e}")
