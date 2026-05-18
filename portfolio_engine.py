@@ -150,8 +150,13 @@ def compute_risk(symbol: str) -> str:
     return RISK_MAP.get(symbol, DEFAULT_STOCK_RISK)
 
 
-def compute_metrics(symbol: str, log_path: str) -> Metrics:
+def compute_metrics(symbol: str, log_path: str, log_callback=None) -> Metrics:
     m = Metrics()
+    def metric_log(message):
+        write_log(log_path, message)
+        if log_callback:
+            log_callback(message)
+     
     m.risk = compute_risk(symbol)
 
     t = yf.Ticker(symbol)
@@ -161,7 +166,7 @@ def compute_metrics(symbol: str, log_path: str) -> Metrics:
     try:
         info = t.get_info()
     except Exception as e:
-        write_log(log_path, f"[WARN] {symbol}: get_info échoue ({type(e).__name__}: {e})")
+        metric_log(f"[WARN] {symbol}: get_info échoue ...")
         info = {}
 
     if symbol not in ETF_SANS_MARKET_CAP:
@@ -204,7 +209,7 @@ def compute_metrics(symbol: str, log_path: str) -> Metrics:
         closes = close.tail(15).tolist()  # 14 périodes + 1
         m.rsi = compute_rsi(closes)
         # ===== Ligne à supprimer après test ====================
-        write_log(log_path, f"RSI {symbol}:{m.rsi}")
+        metric_log(f"RSI {symbol}:{m.rsi}")
         # =========================
     except Exception:
         m.rsi = None
@@ -357,7 +362,7 @@ def process_portfolio(uploaded_file, log_callback=None, progress_callback=None):
     for i, sym in enumerate(tickers):
         col = 2 + i
         try:
-            met = compute_metrics(sym, log_path)
+            met = compute_metrics(sym, log_path, log_callback)
             ok += 1
             live_log(f"OK {sym}")
             
