@@ -9,7 +9,7 @@ st.set_page_config(
     layout="centered"
 )
 
-st.title("📈 Analyseur de Portefeuille Yahoo")
+st.title("📈 Portefeuille Yahoo")
 st.write("Téléversez votre fichier Excel de portefeuille, lancez l’analyse, puis téléchargez le fichier mis à jour.")
 with open("Fonds-Compagnies-Suivi_MODELE.xlsx", "rb") as template_file:
     st.download_button(
@@ -44,11 +44,13 @@ if uploaded_file is not None:
             for message, pct in etapes:
                 status_box.info(message)
                 progress_bar.progress(pct)
-                time.sleep(1.2)
+                time.sleep(1.0)
 
             output_file = process_portfolio(uploaded_file)
 
+            
             progress_bar.progress(100)
+            time.sleep(0.3)
             status_box.success("Analyse terminée avec succès.")
 
             st.download_button(
