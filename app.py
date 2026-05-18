@@ -1,5 +1,6 @@
 import streamlit as st
 import datetime as dt
+import time
 from portfolio_engine import process_portfolio
 
 st.set_page_config(
@@ -29,37 +30,25 @@ if uploaded_file is not None:
 
     if st.button("Lancer l’analyse"):
         try:
-            log_box = st.empty()
-            log_box.text_area("Journal d’analyse", "", height=300)
             status_box = st.empty()
 
-            status_box.info("Analyse en cours...")
+            progress_bar = st.progress(0)
+
+            etapes = [
+                ("Synchronisation Yahoo Finance...", 15),
+                ("Calcul des métriques...", 40),
+                ("Application des règles...", 70),
+                ("Génération du fichier Excel...", 90),
+            ]
+
+            for message, pct in etapes:
+                status_box.info(message)
+                progress_bar.progress(pct)
+                time.sleep(0.6)
 
             output_file = process_portfolio(uploaded_file)
 
-            status_box.info("Analyse en cours...")
-
-            live_logs = []
-            progress_bar = st.progress(0)
-
-            def ui_log(message):
-                live_logs.append(message)
-                log_box.text_area(
-                    "Journal d’analyse",
-                    "\n".join(live_logs),
-                    height=300
-                )
-
-                def ui_progress(current, total):
-                    if total > 0:
-                        progress_bar.progress(int((current / total) * 100))
-
-                output_file = process_portfolio(
-                    uploaded_file,
-                    log_callback=ui_log,
-                    progress_callback=ui_progress
-                )
-
+            progress_bar.progress(100)
             status_box.success("Analyse terminée avec succès.")
 
             st.download_button(
