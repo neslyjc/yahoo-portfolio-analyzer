@@ -30,6 +30,7 @@ if uploaded_file is not None:
     if st.button("Lancer l’analyse"):
         try:
             log_box = st.empty()
+            log_box.text_area("Journal d’analyse", "", height=300)
             status_box = st.empty()
 
             status_box.info("Analyse en cours...")
