@@ -4,6 +4,25 @@ import time
 from portfolio_engine import process_portfolio
 from zoneinfo import ZoneInfo
 
+# Protection accès simple
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    st.title("Analyse Fonds et Compagnies")
+    st.subheader("Accès réservé")
+
+    password = st.text_input("Veuillez entrer le mot de passe :", type="password")
+
+    if st.button("Accéder"):
+        if password == st.secrets["APP_PASSWORD"]:
+            st.session_state.authenticated = True
+            st.rerun()
+        else:
+            st.error("Mot de passe invalide")
+
+    st.stop()
+
 st.set_page_config(
     page_title="Analyse Fonds et Compagnies",
     page_icon="📈",
