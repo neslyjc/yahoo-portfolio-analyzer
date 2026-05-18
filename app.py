@@ -50,7 +50,7 @@ if uploaded_file is not None:
 
             try:
                 with open("/tmp/portfolio_log.txt", "r", encoding="utf-8") as f:
-                logs = f.read()
+                    logs = f.read()
 
                 st.text_area(
                     "Journal d’analyse",
