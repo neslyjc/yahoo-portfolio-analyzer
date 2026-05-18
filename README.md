@@ -1,2 +1,2 @@
-# yahoo-portfolio-analyzer
-Yahoo Finance portfolio analyzer with Streamlit
+# Analyse Fonds Compagnies
+Analyse Fonds Compagnies with Streamlit
