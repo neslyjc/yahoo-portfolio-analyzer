@@ -85,7 +85,16 @@ if uploaded_file is not None:
             st.download_button(
                 label="Télécharger le fichier Excel mis à jour (Streamlit → votre appareil)",
                 data=output_file,
-                file_name=f"Portefeuille_MAJ_{eastern_now.strftime('%Y-%m-%d_%H%M')}.xlsx",
+                
+                uploaded_name = uploaded_file.name.upper()
+
+                if "CDR_TO" in uploaded_name:
+                    prefix = "Portefeuille_MAJ_CDR_TO"
+                else:
+                    prefix = "Portefeuille_MAJ_USA"
+
+                file_name=f"{prefix}_{eastern_now.strftime('%Y-%m-%d_%H%M')}.xlsx"
+                
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
 
